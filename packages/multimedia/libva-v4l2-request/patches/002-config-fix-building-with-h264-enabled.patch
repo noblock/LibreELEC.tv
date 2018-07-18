@@ -1,0 +1,25 @@
+From a816436baff0871d3d603c25fb96da28a43e746d Mon Sep 17 00:00:00 2001
+From: Jernej Skrabec <jernej.skrabec@siol.net>
+Date: Wed, 31 Oct 2018 18:10:47 +0100
+Subject: [PATCH] config: fix building with h264 enabled
+
+Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+---
+ src/config.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/config.c b/src/config.c
+index 6c52fb9..ecf5d04 100644
+--- a/src/config.c
++++ b/src/config.c
+@@ -124,7 +124,6 @@ VAStatus RequestQueryConfigProfiles(VADriverContextP context,
+ #endif
+ 
+ #ifdef WITH_H264
+-	found = v4l2_find_format(driver_data->video_fd,
+ 	found = v4l2_find_format(driver_data->video_fd,
+ 				 V4L2_BUF_TYPE_VIDEO_OUTPUT,
+ 				 V4L2_PIX_FMT_H264_SLICE);
+-- 
+2.19.1
+
