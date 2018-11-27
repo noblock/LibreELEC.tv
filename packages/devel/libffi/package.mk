@@ -18,3 +18,5 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-debug \
                            --enable-raw-api \
                            --disable-purify-safety \
                            --with-gnu-ld"
+
+if [ "${DEVICE}" = "H5" ]; then PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --enable-shared"; fi
