@@ -1,0 +1,44 @@
+From 8bb8175edd2ab79aa191c7907f33b1891ef78ad4 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megous@megous.com>
+Date: Wed, 25 Jul 2018 02:02:04 +0200
+Subject: [PATCH 1076/1089] Revert "mmc: sunxi: Drop the init / reset of the
+ controller from set_ios"
+
+This reverts commit eef797ac13c08fae0f0ce7d2215d0951e884fa2d.
+---
+ drivers/mmc/host/sunxi-mmc.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index 8a57eb5cd2dc..de2343655bd7 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -939,7 +939,14 @@ static void sunxi_mmc_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
+ {
+ 	struct sunxi_mmc_host *host = mmc_priv(mmc);
+ 
++	if (ios->power_mode == MMC_POWER_OFF)
++		sunxi_mmc_reset_host(host);
++
+ 	sunxi_mmc_card_power(host, ios);
++
++	if (ios->power_mode == MMC_POWER_UP)
++		sunxi_mmc_init_host(host);
++
+ 	sunxi_mmc_set_bus_width(host, ios->bus_width);
+ 	sunxi_mmc_set_clk(host, ios);
+ }
+@@ -1394,10 +1401,6 @@ static int sunxi_mmc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto error_free_dma;
+ 
+-	ret = sunxi_mmc_init_host(host);
+-	if (ret)
+-		goto error_free_dma;
+-
+ 	pm_runtime_set_active(&pdev->dev);
+ 	pm_runtime_set_autosuspend_delay(&pdev->dev, 50);
+ 	pm_runtime_use_autosuspend(&pdev->dev);
+-- 
+2.19.2
+

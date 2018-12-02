@@ -22,7 +22,8 @@
 
   # Kernel to use. values can be:
   # default:  default mainline kernel
-    LINUX="default"
+  # LINUX="default"
+    LINUX="megous-4.19"
 
     EXTRA_CMDLINE="console=ttyS0,115200 console=tty1"
 

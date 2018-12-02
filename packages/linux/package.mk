@@ -43,6 +43,12 @@ case "$LINUX" in
     PKG_URL="https://github.com/raspberrypi/linux/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     ;;
+  megous-4.19)
+    PKG_VERSION="4.19.6" # 4.19
+    PKG_SHA256="644e61beb66211c0c5c13f91d96de1725055e6eea4cda7bb37ce9929ba8f09c3"
+    PKG_URL="https://www.kernel.org/pub/linux/kernel/v4.x/$PKG_NAME-$PKG_VERSION.tar.xz"
+    PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
+    ;;
   *)
     PKG_VERSION="4.19"
     PKG_SHA256="0c68f5655528aed4f99dae71a5b259edc93239fa899e2df79c055275c21749a1"

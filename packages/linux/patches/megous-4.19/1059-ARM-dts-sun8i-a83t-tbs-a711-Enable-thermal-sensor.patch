@@ -1,0 +1,29 @@
+From 8c80bbe4f2c290eaa58dccf1554b939b5552b6a8 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megous@megous.com>
+Date: Tue, 14 Nov 2017 17:17:14 +0100
+Subject: [PATCH 1059/1089] ARM: dts: sun8i-a83t-tbs-a711: Enable thermal
+ sensor
+
+Signed-off-by: Ondrej Jirman <megous@megous.com>
+---
+ arch/arm/boot/dts/sun8i-a83t-tbs-a711.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/boot/dts/sun8i-a83t-tbs-a711.dts b/arch/arm/boot/dts/sun8i-a83t-tbs-a711.dts
+index bc08c3c281c1..ed59185b9105 100644
+--- a/arch/arm/boot/dts/sun8i-a83t-tbs-a711.dts
++++ b/arch/arm/boot/dts/sun8i-a83t-tbs-a711.dts
+@@ -588,6 +588,10 @@
+ 	};
+ };
+ 
++&ths {
++	status = "okay";
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_pb_pins>;
+-- 
+2.19.2
+

@@ -1,0 +1,28 @@
+From 94ea9a62982e01190b1f181e1267f966e45817da Mon Sep 17 00:00:00 2001
+From: Quentin Schulz <quentin.schulz@free-electrons.com>
+Date: Wed, 23 Aug 2017 15:07:14 +0200
+Subject: [PATCH 1022/1089] mfd: axp20x: add USB power supply mfd cell to
+ AXP813
+
+Signed-off-by: Quentin Schulz <quentin.schulz@free-electrons.com>
+---
+ drivers/mfd/axp20x.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+index 0be511dd93d0..8bdad42999e6 100644
+--- a/drivers/mfd/axp20x.c
++++ b/drivers/mfd/axp20x.c
+@@ -778,6 +778,9 @@ static const struct mfd_cell axp813_cells[] = {
+ 	}, {
+ 		.name		= "axp20x-battery-power-supply",
+ 		.of_compatible	= "x-powers,axp813-battery-power-supply",
++	}, {
++		.name			= "axp20x-usb-power-supply",
++		.of_compatible		= "x-powers,axp813-usb-power-supply",
+ 	},
+ };
+ 
+-- 
+2.19.2
+

@@ -1,0 +1,38 @@
+From 6af99af9412abf02b2b3abf95c0da41056d15f7c Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megous@megous.com>
+Date: Fri, 16 Mar 2018 20:31:55 +0100
+Subject: [PATCH 1066/1089] mmc: add delay after power class selection
+
+This seems to fix issue with sporadic ETIMEOUT in eMMC cache
+initialization on second generation TBS A711 tablet.
+
+Signed-off-by: Ondrej Jirman <megous@megous.com>
+---
+ drivers/mmc/core/mmc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+index bc1bd2c25613..b21a239798a0 100644
+--- a/drivers/mmc/core/mmc.c
++++ b/drivers/mmc/core/mmc.c
+@@ -1770,6 +1770,8 @@ static int mmc_init_card(struct mmc_host *host, u32 ocr,
+ 	 */
+ 	mmc_select_powerclass(card);
+ 
++	msleep(20);
++
+ 	/*
+ 	 * Enable HPI feature (if supported)
+ 	 */
+@@ -1787,6 +1789,8 @@ static int mmc_init_card(struct mmc_host *host, u32 ocr,
+ 			card->ext_csd.hpi_en = 1;
+ 	}
+ 
++	msleep(20);
++
+ 	/*
+ 	 * If cache size is higher than 0, this indicates
+ 	 * the existence of cache and it can be turned on.
+-- 
+2.19.2
+

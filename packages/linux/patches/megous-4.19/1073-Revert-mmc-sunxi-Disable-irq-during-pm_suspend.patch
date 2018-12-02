@@ -1,0 +1,38 @@
+From 4d867e2bd6c353e6032a8d870b38ada80af04f8f Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megous@megous.com>
+Date: Wed, 25 Jul 2018 02:01:39 +0200
+Subject: [PATCH 1073/1089] Revert "mmc: sunxi: Disable irq during pm_suspend"
+
+This reverts commit b8ba3578752b7aae5b6f8bd235873ea112969ff9.
+---
+ drivers/mmc/host/sunxi-mmc.c | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index 568349e1fbc2..7c1dd4411df7 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -1449,7 +1449,6 @@ static int sunxi_mmc_runtime_resume(struct device *dev)
+ 	sunxi_mmc_init_host(host);
+ 	sunxi_mmc_set_bus_width(host, mmc->ios.bus_width);
+ 	sunxi_mmc_set_clk(host, &mmc->ios);
+-	enable_irq(host->irq);
+ 
+ 	return 0;
+ }
+@@ -1459,12 +1458,6 @@ static int sunxi_mmc_runtime_suspend(struct device *dev)
+ 	struct mmc_host	*mmc = dev_get_drvdata(dev);
+ 	struct sunxi_mmc_host *host = mmc_priv(mmc);
+ 
+-	/*
+-	 * When clocks are off, it's possible receiving
+-	 * fake interrupts, which will stall the system.
+-	 * Disabling the irq  will prevent this.
+-	 */
+-	disable_irq(host->irq);
+ 	sunxi_mmc_reset_host(host);
+ 	sunxi_mmc_disable(host);
+ 
+-- 
+2.19.2
+

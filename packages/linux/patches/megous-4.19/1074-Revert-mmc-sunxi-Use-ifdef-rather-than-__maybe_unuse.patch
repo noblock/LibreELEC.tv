@@ -1,0 +1,45 @@
+From 4e674a3000a8032bcdd27649d909893fa2e3637d Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megous@megous.com>
+Date: Wed, 25 Jul 2018 02:01:43 +0200
+Subject: [PATCH 1074/1089] Revert "mmc: sunxi: Use ifdef rather than
+ __maybe_unused"
+
+This reverts commit af6b8ff4bce4ea43e89236339f84fc0a26044c42.
+---
+ drivers/mmc/host/sunxi-mmc.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index 7c1dd4411df7..e2653c9ba6c5 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -1435,8 +1435,7 @@ static int sunxi_mmc_remove(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-#ifdef CONFIG_PM
+-static int sunxi_mmc_runtime_resume(struct device *dev)
++static int __maybe_unused sunxi_mmc_runtime_resume(struct device *dev)
+ {
+ 	struct mmc_host	*mmc = dev_get_drvdata(dev);
+ 	struct sunxi_mmc_host *host = mmc_priv(mmc);
+@@ -1453,7 +1452,7 @@ static int sunxi_mmc_runtime_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int sunxi_mmc_runtime_suspend(struct device *dev)
++static int __maybe_unused sunxi_mmc_runtime_suspend(struct device *dev)
+ {
+ 	struct mmc_host	*mmc = dev_get_drvdata(dev);
+ 	struct sunxi_mmc_host *host = mmc_priv(mmc);
+@@ -1463,7 +1462,6 @@ static int sunxi_mmc_runtime_suspend(struct device *dev)
+ 
+ 	return 0;
+ }
+-#endif
+ 
+ static const struct dev_pm_ops sunxi_mmc_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(sunxi_mmc_runtime_suspend,
+-- 
+2.19.2
+

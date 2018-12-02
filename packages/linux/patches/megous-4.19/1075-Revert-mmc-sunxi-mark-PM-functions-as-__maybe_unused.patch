@@ -1,0 +1,36 @@
+From b8e05fe47e3ab0d59df75c9ca163ebf2ddf93dae Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megous@megous.com>
+Date: Wed, 25 Jul 2018 02:01:56 +0200
+Subject: [PATCH 1075/1089] Revert "mmc: sunxi: mark PM functions as
+ __maybe_unused"
+
+This reverts commit 45ee50461c249666e1aa050bb8a7d0785f1c79f5.
+---
+ drivers/mmc/host/sunxi-mmc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index e2653c9ba6c5..8a57eb5cd2dc 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -1435,7 +1435,7 @@ static int sunxi_mmc_remove(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused sunxi_mmc_runtime_resume(struct device *dev)
++static int sunxi_mmc_runtime_resume(struct device *dev)
+ {
+ 	struct mmc_host	*mmc = dev_get_drvdata(dev);
+ 	struct sunxi_mmc_host *host = mmc_priv(mmc);
+@@ -1452,7 +1452,7 @@ static int __maybe_unused sunxi_mmc_runtime_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused sunxi_mmc_runtime_suspend(struct device *dev)
++static int sunxi_mmc_runtime_suspend(struct device *dev)
+ {
+ 	struct mmc_host	*mmc = dev_get_drvdata(dev);
+ 	struct sunxi_mmc_host *host = mmc_priv(mmc);
+-- 
+2.19.2
+
